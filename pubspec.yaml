@@ -1,0 +1,26 @@
+name: vox
+description: "Typed request/response messaging, lifecycle management and state handling for Unity embedded in Flutter via flutter_embed_unity."
+version: 0.1.0
+homepage:
+
+environment:
+  sdk: ^3.12.2
+  flutter: ">=1.17.0"
+
+dependencies:
+  flutter:
+    sdk: flutter
+  # Only the app-facing package is depended on here. The Android implementation
+  # is deliberately NOT pinned: flutter_embed_unity endorses
+  # flutter_embed_unity_6000_0_android as its default, and an app targeting
+  # Unity 2022.3 overrides that in its own pubspec. Pinning it here would both
+  # force a Unity version on every consumer and lose to the endorsed default
+  # anyway, since a library dependency is transitive from the app's view.
+  flutter_embed_unity: ^2.0.0
+
+dev_dependencies:
+  flutter_test:
+    sdk: flutter
+  flutter_lints: ^6.0.0
+
+flutter:

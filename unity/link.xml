@@ -1,0 +1,17 @@
+<!--
+  Protects vox and Newtonsoft.Json from IL2CPP managed code stripping.
+
+  Newtonsoft resolves types by reflection, so with Managed Stripping Level set
+  to Medium or High the types it only ever touches reflectively can be removed.
+  The symptom is deserialisation that works in the Editor and in development
+  builds but fails in release builds on device.
+
+  Place this file anywhere under Assets/ (Unity merges every link.xml it finds).
+  Add your own message DTO assembly below if it lives outside Assembly-CSharp.
+-->
+<linker>
+  <assembly fullname="Newtonsoft.Json" preserve="all"/>
+  <assembly fullname="Assembly-CSharp">
+    <namespace fullname="Vox" preserve="all"/>
+  </assembly>
+</linker>

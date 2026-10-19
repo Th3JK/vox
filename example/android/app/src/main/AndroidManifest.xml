@@ -1,0 +1,75 @@
+<manifest xmlns:android="http://schemas.android.com/apk/res/android">
+    <application
+        android:label="vox_example"
+        android:name="${applicationName}"
+        android:icon="@mipmap/ic_launcher">
+        <!-- android:configChanges below is required by embedded Unity: if this
+             Activity is destroyed, Unity kills the whole app. It must keep at
+             least orientation, screenLayout, screenSize and keyboardHidden or
+             the app crashes on rotation. The Flutter template already emits the
+             full list, so nothing needed adding here - just do not trim it. -->
+        <activity
+            android:name=".MainActivity"
+            android:exported="true"
+            android:launchMode="singleTop"
+            android:taskAffinity=""
+            android:theme="@style/LaunchTheme"
+            android:configChanges="orientation|keyboardHidden|keyboard|screenSize|smallestScreenSize|locale|layoutDirection|fontScale|screenLayout|density|uiMode"
+            android:hardwareAccelerated="true"
+            android:windowSoftInputMode="adjustResize">
+            <!-- Specifies an Android theme to apply to this Activity as soon as
+                 the Android process has started. This theme is visible to the user
+                 while the Flutter UI initializes. After that, this theme continues
+                 to determine the Window background behind the Flutter UI. -->
+            <meta-data
+              android:name="io.flutter.embedding.android.NormalTheme"
+              android:resource="@style/NormalTheme"
+              />
+            <intent-filter>
+                <action android:name="android.intent.action.MAIN"/>
+                <category android:name="android.intent.category.LAUNCHER"/>
+            </intent-filter>
+        </activity>
+        <!-- Flutter engine flags, for the record. Neither of the two below is
+             enabled, because neither fixed the Unity startup crash and both are
+             deviations from the configuration flutter_embed_unity is tested
+             against. The actual fix was in Unity: its Android Graphics APIs are
+             now OpenGLES3-first rather than Vulkan-first, matching the
+             upstream example project.
+
+             Tried and ruled out:
+               EnableHcpp = true       switched the platform view from the
+                                       legacy VirtualDisplay strategy to the
+                                       SurfaceControl-based HCPP one. Confirmed
+                                       active in the log, crash unchanged.
+
+             Still available if Unity ever conflicts with Flutter's renderer
+             (Flutter runs Impeller on Vulkan). Enable ONE at a time:
+               <meta-data
+                   android:name="io.flutter.embedding.android.ImpellerBackend"
+                   android:value="opengles" />
+               <meta-data
+                   android:name="io.flutter.embedding.android.EnableImpeller"
+                   android:value="false" />
+             Flag names come from FlutterEngineFlags in the engine jar; the
+             manifest key is the flag name prefixed with
+             io.flutter.embedding.android. -->
+
+        <!-- Don't delete the meta-data below.
+             This is used by the Flutter tool to generate GeneratedPluginRegistrant.java -->
+        <meta-data
+            android:name="flutterEmbedding"
+            android:value="2" />
+    </application>
+    <!-- Required to query activities that can process text, see:
+         https://developer.android.com/training/package-visibility and
+         https://developer.android.com/reference/android/content/Intent#ACTION_PROCESS_TEXT.
+
+         In particular, this is used by the Flutter engine in io.flutter.plugin.text.ProcessTextPlugin. -->
+    <queries>
+        <intent>
+            <action android:name="android.intent.action.PROCESS_TEXT"/>
+            <data android:mimeType="text/plain"/>
+        </intent>
+    </queries>
+</manifest>

@@ -1,0 +1,25 @@
+name: vox_example
+description: "Demonstrates the vox package: typed Unity messaging, lifecycle and state."
+publish_to: 'none'
+version: 0.1.0
+
+environment:
+  sdk: ^3.12.2
+
+dependencies:
+  flutter:
+    sdk: flutter
+  vox:
+    path: ../
+  # Direct app dependency, which overrides flutter_embed_unity's endorsed
+  # default of flutter_embed_unity_6000_0_android. Required because VoxUnity is
+  # a Unity 2022.3 project; the Unity 6 glue would not match the export.
+  flutter_embed_unity_2022_3_android: ^2.0.0
+
+dev_dependencies:
+  flutter_test:
+    sdk: flutter
+  flutter_lints: ^6.0.0
+
+flutter:
+  uses-material-design: true
